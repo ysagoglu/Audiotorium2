@@ -1,0 +1,393 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title='';
+                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#E8E8E8',
+                    shadow: false,
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        
+        <!-- section -->
+                <div class="Container100">                    
+                    <div class="Container70 Responsive100">
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile" style="height:392px;">
+                                    <h:form>
+                                        <p:panel header="DOWNLOADS" style="height:100%; min-height:348px;" styleClass="HeiAutoOnMobile">
+                                            <p:chart type="line" model="#{chartView.lineModel1}" style="height:320px;" responsive="true"/>
+                                        </p:panel>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile" style="min-height:816px;">
+                                    <h2 class="CardTopic"><i class="icon-google132 Fs20 Fleft MarRight10 OvHidden"></i> SALES REPORTS
+                                        <h:form>
+                                            <p:commandButton id="salesMenu" type="button" icon="fa fa-ellipsis-v Gray Fs20" styleClass="Fright GrayButton" style="margin-top:-30px !important;"/>
+                                            <p:menu overlay="true" trigger="salesMenu" my="left top" at="left bottom">
+                                                <p:menuitem value=" Get Full Report" icon="ui-icon-disk fa fa-file-pdf-o" />
+                                                <p:menuitem value=" Send With Email" icon="ui-icon-disk fa fa-send" />
+                                                <p:menuitem value=" Print Report" icon="ui-icon-disk fa fa-print" />
+                                            </p:menu>
+                                        </h:form>
+                                    </h2>
+                                    <div class="Separator"></div>
+                                    <h:form id="form">
+                                        <p:dataTable id="singleDT" var="car" value="#{dtSelectionView.cars7}" selectionMode="single" selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}"
+                                                     rows="12" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="12,15,22" emptyMessage="No records found with given criteria" reflow="true">
+                                            <f:facet name="header">
+                                                ANNUAL SALES REPORTS
+                                            </f:facet>
+
+                                            <p:ajax event="rowSelect" update=":form:carDetail" oncomplete="PF('carDialog').show()" />
+
+                                            <p:column headerText="Id" sortBy="#{car.id}" footerText="Id">
+                                                <h:outputText value="#{car.id}" />
+                                            </p:column>
+                                            <p:column headerText="Year" sortBy="#{car.year}" footerText="Year">
+                                                <h:outputText value="#{car.year}" />
+                                            </p:column>
+                                            <p:column headerText="Brand" sortBy="#{car.brand}" footerText="Brand">
+                                                <h:outputText value="#{car.brand}" />
+                                            </p:column>
+                                            <p:column headerText="Color" sortBy="#{car.color}" footerText="Color">
+                                                <h:outputText value="#{car.color}" />
+                                            </p:column>
+                                        </p:dataTable>
+
+                                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                                <h:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}">
+                                                    <f:facet name="header">
+                                                        <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
+                                                    </f:facet>
+
+                                                    <h:outputText value="Id:" style="font-weight: bold"/>
+                                                    <h:outputText value="#{dtSelectionView.selectedCar.id}" />
+
+                                                    <h:outputText value="Year" style="font-weight: bold"/>
+                                                    <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+
+                                                    <h:outputText value="Color:" style="font-weight: bold"/>
+                                                    <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+
+                                                    <h:outputText value="Price" style="font-weight: bold"/>
+                                                    <h:outputText value="\$#{dtSelectionView.selectedCar.price}" />
+                                                </h:panelGrid>
+                                            </p:outputPanel>
+                                        </p:dialog>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="Container30 Responsive100">
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+                                    <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+                                        <div class="SoftOrangeBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+                                            <i class="icon-planet29 Orange Fs100"></i>
+                                        </div>
+                                        <p></p>
+                                        <span class="Gray FontRobotoLight Fs20">All Earnings</span><br/>
+                                        <span class="Orange Fs30 FontRobotoBold">$ 30,200</span>
+                                    </div>
+                                    <div class="CardFooter">
+                                        <span class="Green Fleft Fs18">+ % 20</span>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-add182"></i></a>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-receipt9"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+                                    <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+                                        <div class="SoftGreenBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+                                            <i class="icon-screen44 Green Fs100"></i>
+                                        </div>
+                                        <p></p>
+                                        <span class="Gray FontRobotoLight Fs20">Page Views</span><br/>
+                                        <span class="Green Fs30 FontRobotoBold">320 K+</span>
+                                    </div>
+                                    <div class="CardFooter">
+                                        <span class="Red Fleft Fs18">- % 35</span>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-add182"></i></a>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-receipt9"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+                                    <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+                                        <div class="SoftRedBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+                                            <i class="icon-briefcase50 Red Fs100"></i>
+                                        </div>
+                                        <p></p>
+                                        <span class="Gray FontRobotoLight Fs20">Tasks Status</span><br/>
+                                        <span class="Red Fs30 FontRobotoBold">27 / 114</span>
+                                    </div>
+                                    <div class="CardFooter">
+                                        <span class="Fleft Gray Fs18">107 remaining</span>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-add182"></i></a>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-receipt9"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+                                    <div class="Container100" style="margin:0px 10px 10px -10px; padding:0px 10px;">
+                                        <div class="SoftPurpleBack DispInlBlock Fleft" style="margin:-10px 10px -10px -10px; padding:20px 10px;">
+                                            <i class="icon-download166 Purple Fs100"></i>
+                                        </div>
+                                        <p></p>
+                                        <span class="Gray FontRobotoLight Fs18">Total Downloads</span><br/>
+                                        <span class="Purple Fs30 FontRobotoBold">1,351 K+</span>
+                                    </div>
+                                    <div class="CardFooter">
+                                        <span class="Green Fleft Fs18">+ % 17</span>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-add182"></i></a>
+                                        <a href="#" class="CardFooterBtn Gray BorderLeft Fright ripplelink"><i class="icon-receipt9"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive100">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile">
+                                    <h2 class="CardTopic"><i class="icon-chat76 Fs20 Fleft MarRight10"></i> MESSAGE TO USERS
+                                        <h:form>
+                                            <p:commandButton id="messageToUsersMenu" type="button" icon="fa fa-ellipsis-v Gray Fs20" styleClass="Fright GrayButton" style="margin-top:-30px !important;"/>
+                                            <p:menu overlay="true" trigger="messageToUsersMenu" my="left top" at="left bottom">
+                                                <p:menuitem value="New" icon="ui-icon-disk fa fa-edit" />
+                                                <p:menuitem value="Clear" icon="ui-icon-disk fa fa-close" />
+                                                <p:menuitem value="Send" icon="ui-icon-disk fa fa-send" />
+                                            </p:menu>
+                                        </h:form>
+                                    </h2>
+                                    <div class="Separator"></div>
+                                    <div class="Container100">
+                                        <div class="ContainerIndent">
+                                            <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="min-width:100px;" styleClass="Wid70">
+                                                <f:selectItem itemLabel="Select User" itemValue="" />
+                                                <f:selectItem itemLabel="Walter Perkins" itemValue="Xbox One" />
+                                                <f:selectItem itemLabel="Annie Silver" itemValue="PS4" />
+                                                <f:selectItem itemLabel="Jack Sparrow" itemValue="Wii U" />
+                                                <f:selectItem itemLabel="Paul Gasoul" itemValue="Wii U" />
+                                            </p:selectOneMenu>
+                                            <div class="EmptyBox10"></div>
+                                            <p:inputText styleClass="Wid90" placeholder="Subject"></p:inputText>
+                                            <div class="EmptyBox10"></div>
+                                            <p:inputTextarea styleClass="Wid90" placeholder="Message"></p:inputTextarea>
+                                            <div class="EmptyBox10"></div>
+                                            <div class="Container100"><p:inputSwitch onLabel="on" offLabel="off" styleClass="Fleft"/> <span class="DispInlBlock Fleft" style="margin:5px 0px 0px 10px;">Send To All Users</span></div>
+                                            <div class="EmptyBox20"></div>
+                                            <p:button value="SEND" styleClass="Fright GreenButton"/>
+                                            <p:button value="CLEAR" styleClass="Fright RedButton"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- section -->
+                <div class="Container100">
+                    <div class="Container100">
+                        <div class="ContainerIndent">
+                            <div class="Card ShadowEffect HeiAutoOnMobile">
+                                <h:form>
+                                    <p:treeTable value="#{treeSelectionView.root3}" var="document" selectionMode="checkbox" selection="#{treeSelectionView.selectedNodes1}">
+                                        <f:facet name="header">
+                                            FILE MANAGER
+                                        </f:facet>
+                                        <p:column headerText="Name">
+                                            <h:outputText value="#{document.name}" />
+                                        </p:column>
+                                        <p:column headerText="Size">
+                                            <h:outputText value="#{document.size}" />
+                                        </p:column>
+                                        <p:column headerText="Action">
+                                            <p:commandButton value="Print" icon="fa fa-print Fs16 White" styleClass="Fright OrangeButton" iconPos="right"/>
+                                            <p:commandButton value="E-Mail" icon="fa fa-envelope Fs16 White" styleClass="Fright PurpleButton" iconPos="right"/>
+                                        </p:column>
+                                    </p:treeTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- section -->
+                <div class="Container100">
+                    <div class="Container70 Responsive100">
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile">
+                                    <h2 class="CardTopic"><i class="icon-tack Fs20 Fleft MarRight10"></i> TO DO MANAGER
+                                        <h:form>
+                                            <p:commandButton id="todoMenu" type="button" icon="fa fa-ellipsis-v Gray Fs20" styleClass="Fright GrayButton" style="margin-top:-30px !important;"/>
+                                            <p:menu overlay="true" trigger="todoMenu" my="left top" at="left bottom">
+                                                <p:menuitem value="New To Do +" icon="ui-icon-disk fa fa-square-o " />
+                                                <p:menuitem value="Delete Selected" icon="ui-icon-disk fa fa-close"  disabled="true"/>
+                                                <p:menuitem value="New To Do Group" icon="ui-icon-disk fa fa-folder" />
+                                                <p:menuitem value="Set Reminder" icon="ui-icon-disk fa fa-clock-o" />
+                                            </p:menu>
+                                        </h:form>
+                                    </h2>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Send Sales Reports To CEO" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Hangout with Product Manager at 12:30 AM" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Dinner with Walter Perkins at 3:00 PM" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Send Sales Reports To CEO" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Hangout with Product Manager at 12:30 AM" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="SeparatorFull"></div>
+                                    <p:selectBooleanCheckbox value="accept" itemLabel="Dinner with Walter Perkins at 3:00 PM" style="margin-left:10px;"/>
+                                    <a href="#" class=" DispInlBlock Fright"><i class="icon-set6 Pink Fs30"></i></a>
+                                    <div class="CardFooter">
+                                        <p:inputText styleClass="Wid60" style="margin-left:10px;" placeholder="Write New To Do +"></p:inputText>
+                                        <p:commandButton icon="fa fa-plus Fs16 White" styleClass="Fright PinkButton"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="Container50 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile">
+                                    <h2 class="CardTopic"><i class="icon-timelapse Fs20 Fleft MarRight10"></i> PROJECTS PROGRESS</h2>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Antivirus Protection New Plugins <span class="Fright Purple">% 45</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Photo Editing Suit <span class="Fright Orange">% 67</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Simple Code Editor <span class="Fright Green">% 89</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
+                                    <div class="CardFooter">
+                                        <p:commandButton value="MORE INFO" icon="fa fa-plus Fs14" styleClass="Fright BlueTextButton"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="Container30 Responsive100">
+                        <div class="Container100 Responsive50">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile">
+                                    <h2 class="CardTopic"><i class="icon-bug18 Fs20 Fleft MarRight10"></i> ISSUES ASSIGNED TO ME
+                                        <h:form>
+                                            <p:commandButton id="issuesMenu" type="button" icon="fa fa-ellipsis-v Gray Fs20" styleClass="Fright GrayButton" style="margin-top:-30px !important;"/>
+                                            <p:menu overlay="true" trigger="issuesMenu" my="left top" at="left bottom">
+                                                <p:menuitem value="# Get All Issues"/>
+                                                <p:menuitem value="Fix List" icon="ui-icon-disk fa fa-file-text-o" />
+                                                <p:menuitem value="Order By Date" icon="ui-icon-disk fa fa-arrow-circle-o-down" />
+                                                <p:menuitem value="Order By Importance" icon="ui-icon-disk fa fa-arrow-circle-o-down" />
+                                                <p:menuitem value="Reject All" icon="ui-icon-disk fa fa-close" />
+                                            </p:menu>
+                                        </h:form>
+                                    </h2>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100">
+                                        <div class="ContainerIndent Fs16 BoldGray">
+                                            # 102 - Server Overload Issue <br/> <span class="Gray Fs14">Web Project - 18.08.2015</span>
+                                            <p:commandButton value="FIX" icon="fa fa-wrench Fs14" styleClass="Fright RaisedButton BlueTextButton" iconPos="right" style="margin-top:-15px"/>
+                                        </div>
+                                    </div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100">
+                                        <div class="ContainerIndent Fs16 BoldGray">
+                                            # 220 - Rio API Issue <br/> <span class="Gray Fs14">API Project - 10.07.2015</span>
+                                            <p:commandButton value="FIX" icon="fa fa-wrench Fs14" styleClass="Fright RaisedButton BlueTextButton" iconPos="right" style="margin-top:-15px"/>
+                                        </div>
+                                    </div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100">
+                                        <div class="ContainerIndent Fs16 BoldGray">
+                                            # 157 - SAP Changes <br/> <span class="Gray Fs14">SAP Project - 22.05.2015</span>
+                                            <p:commandButton value="FIX" icon="fa fa-wrench Fs14" styleClass="Fright RaisedButton BlueTextButton" iconPos="right" style="margin-top:-15px"/>
+                                        </div>
+                                    </div>
+                                    <div class="CardFooter">
+                                        <p:commandButton value="LIST ALL ISSUES" icon="fa fa-file-text-o Fs14" styleClass="Fright BlueTextButton"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+    </ui:define>
+
+</ui:composition>

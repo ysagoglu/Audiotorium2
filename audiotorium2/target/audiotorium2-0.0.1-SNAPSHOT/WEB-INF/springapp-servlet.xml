@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <!-- the application context definition for the springapp DispatcherServlet -->
+<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+<!-- Scans within the base package of the application for @Components to configure as beans -->
+<!-- @Controller, @Service, @Configuration, etc. -->
+<context:component-scan base-package="com.audiotorium2" />
+
+<!-- Enables the Spring MVC @Controller programming model -->
+<mvc:annotation-driven />
+ <mvc:default-servlet-handler/>
+
+<!-- 	<bean id="XDao" class="a.*"> -->
+<!--         <property name="dataSource" ref="dataSource"/> -->
+<!--     </bean> -->
+ 
+ <!--	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/kronos" />
+		<property name="username" value="postgres" />
+		<property name="password" value="123" />
+	</bean>-->
+	
+	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://127.0.0.1:3306/GameManager" />
+    <property name="username" value="root" />
+    <property name="password" value="Root1234" />
+    </bean>
+    
+    <bean id="userDAO" class="com.audiotorium2.UserDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+    
+
+</beans>

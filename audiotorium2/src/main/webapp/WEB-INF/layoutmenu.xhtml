@@ -1,0 +1,117 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pr="http://primefaces.org/rio">
+
+    <div class="Animated05" id="layout-menu-cover">
+            <h3>Toggleable</h3>
+            <br></br><br></br><br></br>
+            <h:form >
+    <p:menu toggleable="true" style="width: 350px;">
+        <p:submenu label="#{buttonManagedBean.name}">
+            <p:menuitem value="My Profile" action="#{menuView.save}"   />
+            <p:menuitem value="Favourite List" action="#{menuView.list}"   />
+             <p:menuitem value="Genres" action="#{menuView.list}"   />
+            <p:menuitem value="Logout" action="#{buttonManagedBean.logout}"  />
+        </p:submenu>
+    </p:menu>
+    </h:form>
+            
+<!--                 <a class="menulink ripplelink"> -->
+<!--                     <i class="icon-round58 Fs40"></i> -->
+<!--                     <span class="Fs18">John Wilkins<i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Sr. System Administrator</span></span> -->
+<!--                 </a> -->
+<!--                 <ul> -->
+<!--                     <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> User Profile</a></li> -->
+<!--                     <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Change User</a></li> -->
+<!--                     <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> System Settings</a></li> -->
+<!--                     <li><a href="#" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Logout</a></li> -->
+<!--                 </ul> -->
+<!--             </li> -->
+<!--         </ul> -->
+<!--         <div class="Separator"></div> -->
+    <!--    
+        <pr:menu>
+            <p:menuitem id="rm_dashboard" value="Dashboard" icon="icon-planet29" outcome="/dashboard"/>
+            <p:submenu id="rm_theme" label="Rio Theme" icon="icon-mountains14">
+                <p:menuitem id="rm_forms" value="Form Elements" icon="icon-browser" outcome="/forms" />
+                <p:menuitem id="rm_data" value="Data Components" icon="icon-calendar" outcome="/data" />
+                <p:menuitem id="rm_datatable" value="DataTable" icon="icon-grid-alt" outcome="/datatable" />
+                <p:menuitem id="rm_panels" value="Panels" icon="icon-screen47 Fs16" outcome="/panel" />
+                <p:menuitem id="rm_overlays" value="Overlays" icon="icon-windows-1" outcome="/overlay" />
+                <p:menuitem id="rm_menus" value="Menus" icon="icon-link60 Fs16" outcome="/menu" />
+                <p:menuitem id="rm_messages" value="Messages" icon="icon-notifications1 Fs16" outcome="/messages" />
+                <p:menuitem id="rm_fileupload" value="FileUpload" icon="icon-task" outcome="/file" />
+                <p:menuitem id="rm_misc" value="Misc" icon="icon-nfc1" outcome="/misc" />
+            </p:submenu>
+            <p:submenu id="rm_default" label="Default Pages" icon="icon-copy31">
+                <p:menuitem id="rm_empty" value="Empty Page" icon="icon-ipad" outcome="/empty-page" />
+                <p:menuitem id="rm_login" value="Login Page" icon="icon-in-alt" outcome="/login" />
+                <p:menuitem id="rm_error" value="Error Page" icon="icon-close" outcome="/error" />
+                <p:menuitem id="rm_404" value="404 Page" icon="icon-close" outcome="/404" />
+                <p:menuitem id="rm_access" value="Access Denied Page" icon="icon-turn17" outcome="/access-denied" />
+            </p:submenu>
+            <p:submenu id="rm_hierarchy" label="Menu Hierarchy" icon="icon-share39">
+                <p:submenu id="rm_sm1" label="Submenu 1" icon="icon-folder215">
+                    <p:submenu id="rm_sm11" label="Submenu 1.1" icon="icon-folder215">
+                        <p:submenu id="rm_sm111" label="Submenu 1.1.1" icon="icon-folder215">
+                            <p:menuitem id="rm_lnk1111" value="Link 1" icon="icon-link60" url="#" />
+                            <p:menuitem id="rm_lnk1112" value="Link 2" icon="icon-link60" url="#" />
+                            <p:menuitem id="rm_lnk1113" value="Link 3" icon="icon-link60" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                </p:submenu>
+                <p:submenu id="rm_sm2" label="Submenu 2" icon="icon-folder215">
+                    <p:submenu id="rm_22" label="Submenu 2.2" icon="icon-folder215">
+                        <p:submenu id="rm_221" label="Submenu 2.2.1" icon="icon-folder215">
+                            <p:menuitem id="rm_lnk2211" value="Link 1" icon="icon-link60" url="#" />
+                            <p:menuitem id="rm_lnk2212" value="Link 2" icon="icon-link60" url="#" />
+                            <p:menuitem id="rm_lnk2213" value="Link 3" icon="icon-link60" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                </p:submenu>
+            </p:submenu>
+            <p:menuitem id="rm_icons" value="Font Icons" icon="icon-automatic2" outcome="/font-icons" />
+            
+            <p:submenu id="rm_docs" label="Documentation" icon="icon-receipt9">
+                <p:submenu id="rm_docs_core" label="Core CSS Docs" icon="fa fa-code">
+                    <p:menuitem id="rm_docs_1" value="Installation" icon="fa fa-book" outcome="/docs/core/installation" />
+                    <p:menuitem id="rm_docs_2" value="Menus" icon="fa fa-book" outcome="/docs/core/menus" />
+                    <p:menuitem id="rm_docs_3" value="Responsive Mode" icon="fa fa-book" outcome="/docs/core/responsive-mode" />
+                    <p:menuitem id="rm_docs_4" value="ContainerX" icon="fa fa-book" outcome="/docs/core/containerx" />
+                    <p:menuitem id="rm_docs_5" value="WidX" icon="fa fa-book" outcome="/docs/core/widx" />
+                    <p:menuitem id="rm_docs_6" value="Selection" icon="fa fa-book" outcome="/docs/core/selection" />
+                    <p:menuitem id="rm_docs_7" value="Visibility" icon="fa fa-book" outcome="/docs/core/visibilities" />
+                    <p:menuitem id="rm_docs_8" value="Displaying" icon="fa fa-book" outcome="/docs/core/displaying" />
+                    <p:menuitem id="rm_docs_9" value="Positioning" icon="fa fa-book" outcome="/docs/core/positioning" />
+                    <p:menuitem id="rm_docs_10" value="Underline" icon="fa fa-book" outcome="/docs/core/underline" />
+                    <p:menuitem id="rm_docs_11" value="Floating" icon="fa fa-book" outcome="/docs/core/floating" />
+                    <p:menuitem id="rm_docs_12" value="Overflows" icon="fa fa-book" outcome="/docs/core/overflows" />
+                    <p:menuitem id="rm_docs_13" value="Empty Boxes" icon="fa fa-book" outcome="/docs/core/empty-boxes" />
+                    <p:menuitem id="rm_docs_14" value="Opacity" icon="fa fa-book" outcome="/docs/core/opacity" />
+                    <p:menuitem id="rm_docs_15" value="Text Aligning" icon="fa fa-book" outcome="/docs/core/text-aligning" />
+                    <p:menuitem id="rm_docs_16" value="Box Sizing" icon="fa fa-book" outcome="/docs/core/box-sizing" />
+                    <p:menuitem id="rm_docs_17" value="Font Size" icon="fa fa-book" outcome="/docs/core/font-size" />
+                    <p:menuitem id="rm_docs_18" value="Font Weights" icon="fa fa-book" outcome="/docs/core/font-weights" />
+                    <p:menuitem id="rm_docs_19" value="Transitions" icon="fa fa-book" outcome="/docs/core/transitions" />
+                </p:submenu>
+                <p:submenu id="rm_docs_layout" label="Layout CSS Docs" icon="fa fa-code">
+                    <p:menuitem id="rm_docs_20" value="Less" icon="fa fa-book" outcome="/docs/layout/less" />
+                    <p:menuitem id="rm_docs_21" value="Cards" icon="fa fa-book" outcome="/docs/layout/cards" />
+                    <p:menuitem id="rm_docs_22" value="Text Colors" icon="fa fa-book" outcome="/docs/layout/text-colors" />
+                    <p:menuitem id="rm_docs_23" value="Background Colors" icon="fa fa-book" outcome="/docs/layout/background-colors" />
+                    <p:menuitem id="rm_docs_24" value="Borders" icon="fa fa-book" outcome="/docs/layout/borders" />
+                    <p:menuitem id="rm_docs_25" value="Separators" icon="fa fa-book" outcome="/docs/layout/separators" />
+                    <p:menuitem id="rm_docs_26" value="Effects" icon="fa fa-book" outcome="/docs/layout/effects" />
+                    <p:menuitem id="rm_docs_27" value="Roboto Font" icon="fa fa-book" outcome="/docs/layout/roboto-font" />
+                </p:submenu>
+            </p:submenu>
+            <p:separator />
+        </pr:menu>
+-->
+    </div>
+
+</ui:composition>
