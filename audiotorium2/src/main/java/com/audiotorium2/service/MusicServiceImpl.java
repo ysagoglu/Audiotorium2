@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.audiotorium2.dao.IMusicDAO;
 import com.audiotorium2.dao.IUserDAO;
+import com.audiotorium2.entity.GenreWithMusic;
 import com.audiotorium2.entity.SongView;
 import com.audiotorium2.utility.SessionUtils;
 
@@ -52,5 +53,25 @@ public class MusicServiceImpl implements IMusicService{
 	
 	public void insertLog(int userId, String operation) throws Exception {
 		userDAO.insertLog(operation, userId);
+	}
+
+
+	@Override
+	public List<GenreWithMusic> listSongsByGenre() throws Exception {
+		
+		return musicDAO.retrieveSongWithGenre();
+	}
+
+
+	@Override
+	public void addToFavoriteList(int musicId, int userId) {
+		musicDAO.addToFavoriteList(musicId, userId);
+		
+	}
+
+
+	@Override
+	public List<SongView> retrieveFavoriteList(int userid) {
+		return musicDAO.retrieveFavoriteListByUserId(userid);
 	}
 }

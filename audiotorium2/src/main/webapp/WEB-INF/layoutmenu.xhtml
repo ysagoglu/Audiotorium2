@@ -13,8 +13,8 @@
     <p:menu toggleable="true" style="width: 350px;">
         <p:submenu label="#{buttonManagedBean.name}">
             <p:menuitem value="My Profile" action="#{menuView.save}"   />
-            <p:menuitem value="Favourite List" action="#{menuView.list}"   />
-             <p:menuitem value="Genres" action="#{menuView.list}"   />
+            <p:menuitem value="Favorite List" action="#{searchManagedBean.showFavoriteList}"   />
+             <p:menuitem value="Genres" action="#{searchManagedBean.listGenres}"   />
             <p:menuitem value="Logout" action="#{buttonManagedBean.logout}"  />
         </p:submenu>
     </p:menu>

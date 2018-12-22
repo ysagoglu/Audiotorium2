@@ -75,8 +75,7 @@ public class UserServiceImpl implements IUserService{
 		if(user == null) {
 			throw new Exception("User is not found.");
 		}
-		HttpSession session = SessionUtils.getSession();
-		insertLog((Integer)session.getAttribute("id"), "login");
+		insertLog(user.getId(), "login");
 		return user;
 		
 	}
