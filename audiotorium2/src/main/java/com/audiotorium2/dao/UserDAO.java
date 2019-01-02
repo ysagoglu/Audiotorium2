@@ -136,7 +136,7 @@ private DataSource dataSource;
 
 	@Override
 	public void insertLog(String operation, int userId) {
-		String sql = "INSERT INTO SYS.LOG (userid, operation) values(?,?)";
+		String sql = "INSERT INTO sys.log (userid, operation) values(?,?)";
 		Connection conn = null;
 		try {
 			conn = dataSource.getConnection();

@@ -27,13 +27,4 @@
 		<managed-bean-class>com.audiotorium2.SearchManagedBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>musicManagedBean</managed-bean-name>
-		<managed-bean-class>com.audiotorium2.MusicManagedBean</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-		<managed-property>
-			<property-name>searchManagedBean</property-name>
-			<value>#{searchManagedBean}</value>
-		</managed-property>
-	</managed-bean>
 </faces-config>

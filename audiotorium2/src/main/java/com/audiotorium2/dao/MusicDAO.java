@@ -173,7 +173,7 @@ private DataSource dataSource;
 
 	@Override
 	public void addToFavoriteList(int musicId, int userId) {
-		String sql = "insert into user_music (userid,musicid) values (?,?)";
+		String sql = "insert into sys.user_music (userid,musicid) values (?,?)";
 		Connection conn = null;
 		try {
 			conn = dataSource.getConnection();

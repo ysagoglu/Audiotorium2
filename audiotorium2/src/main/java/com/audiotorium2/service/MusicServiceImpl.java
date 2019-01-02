@@ -64,7 +64,18 @@ public class MusicServiceImpl implements IMusicService{
 
 
 	@Override
-	public void addToFavoriteList(int musicId, int userId) {
+	public void addToFavoriteList(int musicId, int userId) throws Exception {
+		
+		List<SongView> songs = musicDAO.retrieveFavoriteListByUserId(userId);
+		
+		if(songs != null && !songs.isEmpty()) {
+			for(SongView s : songs){
+				if(s.getMusicid() == musicId) {
+					throw new Exception("This song already exists in your favorite list.");
+				}
+			}
+		}
+		
 		musicDAO.addToFavoriteList(musicId, userId);
 		
 	}

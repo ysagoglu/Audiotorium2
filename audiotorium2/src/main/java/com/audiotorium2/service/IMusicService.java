@@ -13,7 +13,7 @@ public interface IMusicService {
 	
 	public List<GenreWithMusic> listSongsByGenre() throws Exception;
 	
-	public void addToFavoriteList(int musicId, int userId);
+	public void addToFavoriteList(int musicId, int userId) throws Exception;
 
 	public List<SongView> retrieveFavoriteList(int userid);
 }

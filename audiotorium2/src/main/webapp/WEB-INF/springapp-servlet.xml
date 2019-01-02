@@ -34,9 +34,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	
 	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://127.0.0.1:3306/sys" />
+    <property name="url" value="jdbc:mysql://mydb.coxlgsh3a7dk.us-west-2.rds.amazonaws.com" />
     <property name="username" value="root" />
-    <property name="password" value="Root1234" />
+    <property name="password" value="root1234" />
     </bean>
     
     <bean id="userDAO" class="com.audiotorium2.dao.UserDAO">

@@ -50,6 +50,7 @@ public class ButtonManagedBean {
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 			e.printStackTrace();
 		}
+		
 		// Returns outcome
 		
 		if(user != null) {
@@ -65,6 +66,7 @@ public class ButtonManagedBean {
 	
 	public String signUp() {
 		System.out.println(username + " " + password + " " + email + " " + birthDate + " " + name + " " + surname);
+		
 		
 		User user = new User();
 		user.setUsername(username);
@@ -82,7 +84,7 @@ public class ButtonManagedBean {
 		
 		try {
 			userService.signUp(user);
-			
+			clearall();
 			return "login.xhtml?faces-redirect=true&includeViewParams=true&message=User account has been created successfully";
 		} catch (Exception e) {
 			
@@ -91,11 +93,32 @@ public class ButtonManagedBean {
 			return e.getMessage();
 		}
 		
+		
 	}
+	public String toSignUp() {
+		clearall();
+		return "signup.xhtml";
+	}
+	
+	public void clearall() {
+		// TODO Auto-generated method stub
+		username = null;
+		password = null;
+		email = null;
+		name = null;
+		surname = null;
+		birthDate = null;
+		gender = null;
+		accept = false;
+		phoneNumber = null;
+		
+	}
+
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
 		session.setAttribute("id", null);
 		session.setAttribute("displayname", null);
+		clearall();
 		return "login.xhtml";
 	}
 	

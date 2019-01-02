@@ -88,8 +88,15 @@ public class SearchManagedBean {
 		int musicId = Integer.parseInt(params.get("musicId"));
 		HttpSession session = SessionUtils.getSession();
 		int userId = (Integer)session.getAttribute("id");
-		musicController.addToFavoriteList(musicId, userId);
-		RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success", "Song has been added to your favorite list successfully."));
+		try {
+			musicController.addToFavoriteList(musicId, userId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			return;
+		}
+		RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Song has been added to your favorite list successfully."));
 	}
 	
 	public String showFavoriteList() {

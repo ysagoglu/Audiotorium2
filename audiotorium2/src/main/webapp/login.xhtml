@@ -12,7 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces RIO</title>
+        <title>Audiotorium</title>
         <ui:insert name="head" />
     </h:head>
 
@@ -30,7 +30,7 @@
 	                <h:outputText value="#{param['message']}" />
 				    </div>
                     <div class="EmptyBox20"></div>
-                    <div class="Wid100"><p:inputText placeholder="Email" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.username}"/></div>
+                    <div class="Wid100"><p:inputText placeholder="Email/Username" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.username}"/></div>
                     <div class="EmptyBox10"></div>
                     <div class="Wid100"><p:inputText type="password" placeholder="Password" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.password}"/></div>
 <!--                     <div class="EmptyBox30"></div> -->
@@ -39,7 +39,7 @@
                     <div class="Wid100"><p:commandButton value="Sign In" icon="fa fa-key" styleClass="GreenButton Wid60 Fs18 White RaisedButton" action="#{buttonManagedBean.login()}" /></div>
                     <div class="EmptyBox5"></div>
                     <div class="EmptyBox10"></div>
-                    <div class="Wid100"><p:button value="Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" href="signup.xhtml"/></div>
+                    <div class="Wid100"><p:commandButton value="Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton"  action="#{buttonManagedBean.toSignUp()}"/></div>
                    </h:form>
                     <div class="EmptyBox20"></div>
                 </div>

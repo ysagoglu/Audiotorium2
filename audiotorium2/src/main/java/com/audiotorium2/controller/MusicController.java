@@ -30,7 +30,7 @@ public class MusicController {
 		return musicService.listSongsByGenre();
 	}
 	
-	public void addToFavoriteList(int musicId, int userId) {
+	public void addToFavoriteList(int musicId, int userId) throws Exception {
 		musicService.addToFavoriteList(musicId, userId);
 	}
 	
