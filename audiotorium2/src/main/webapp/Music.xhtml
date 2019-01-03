@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <body>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -6,20 +12,25 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
+    
 <h:form>
 
  <h:form>
  <h:outputLabel for="artistName" value="#{searchManagedBean.artistName}" style="font-size: 48px" />
- <br></br>
+ <b style="font-size:40px">-</b>
  <h:outputLabel for="musicName" value="#{searchManagedBean.songName}" style="font-size: 48px" />
-  
-<p:media value="#{searchManagedBean.path}" width="100%" height="70px" player="quicktime">
+  <br/>
+<p:media value="#{searchManagedBean.path}" width="200px" height="60px" player="quicktime">
     <f:param name="autoPlay" value="false" />
+     <f:param name="hidden" value="true" />
 </p:media>
+
+
 </h:form>
 </h:form>        
     </ui:define>
 
 </ui:composition>
 
-
+</body>
+</html>
