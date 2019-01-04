@@ -8,11 +8,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.ToggleEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,83 +33,96 @@ public class SearchManagedBean {
 	private String path;
 	private String songName;
 	private String artistName;
-	boolean favorite =true;
-	
+	private String profileUrl;
+	private String information;
+	boolean favorite = true;
+
 	@Autowired
 	MusicController musicController;
-	
+
 	private List<GenreWithMusic> genreList;
 	private GenreWithMusic selectedGenre;
-	
+
 	public String listGenres() throws Exception {
-		favorite =true;
+		favorite = true;
 		genreList = new ArrayList<GenreWithMusic>();
-		genreList.addAll(musicController.retriveSongsByGenre()); 
-		 System.out.println("qsdasd");
+		genreList.addAll(musicController.retriveSongsByGenre());
 		return "Genres.xhtml";
 	}
-	
-	
+
 	public String select() {
-		System.out.println(selectedGenre.getGenreId());
 		songList = selectedGenre.getMusicList();
 		return "search-result.xhtml";
 
 	}
-	
+
 	public String search() {
-		favorite =true;
+		favorite = true;
 		try {
-			songList= musicController.search(searchString);
+			songList = musicController.search(searchString);
 		} catch (Exception e) {
 			e.printStackTrace();
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-			return null; 
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			return null;
 		}
 		return "search-result.xhtml";
 	}
-	
+
 	public String playMusic() {
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		try {
-			path =musicController.getSongPath(Integer.parseInt(params.get("musicId")));
-			songName = params.get("musicName");
-			artistName = params.get("artistName");
+			SongView sv = musicController.getSong(Integer.parseInt(params.get("musicId")));
+			path = sv.getSongUrl();
+			songName = sv.getMusicName();
+			artistName = sv.getArtistName();
+			setProfileUrl(sv.getArtistProfileUrl());
+			setInformation(sv.getArtistInfo());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-			return null; 
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			return null;
 		}
 		return "Music.xhtml";
 	}
-	
-	public void addToFavoriteList(){
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+	public void addToFavoriteList() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		int musicId = Integer.parseInt(params.get("musicId"));
 		HttpSession session = SessionUtils.getSession();
-		int userId = (Integer)session.getAttribute("id");
+		int userId = (Integer) session.getAttribute("id");
 		try {
 			musicController.addToFavoriteList(musicId, userId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 			return;
 		}
-		RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Song has been added to your favorite list successfully."));
+		RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Success",
+				"Song has been added to your favorite list successfully."));
 	}
-	
+
 	public String showFavoriteList() {
 		favorite = false;
 		HttpSession session = SessionUtils.getSession();
-		int userId = (Integer)session.getAttribute("id");
-		
+		int userId = (Integer) session.getAttribute("id");
+
 		songList = musicController.retrieveFavoriteList(userId);
-		
+
 		return "favorite-result.xhtml";
-		
+
 	}
-	
+
+	public void handleToggle(ToggleEvent event) {
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Toggled",
+				"Visibility:" + event.getVisibility());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 	public String getSearchString() {
 		return searchString;
 	}
@@ -118,11 +131,9 @@ public class SearchManagedBean {
 		this.searchString = searchString;
 	}
 
-
 	public List<SongView> getSongList() {
 		return songList;
 	}
-
 
 	public void setSongList(List<SongView> songList) {
 		this.songList = songList;
@@ -160,35 +171,44 @@ public class SearchManagedBean {
 		this.artistName = artistName;
 	}
 
-
 	public List<GenreWithMusic> getGenreList() {
 		return genreList;
 	}
-
 
 	public void setGenreList(List<GenreWithMusic> genreList) {
 		this.genreList = genreList;
 	}
 
-
 	public GenreWithMusic getSelectedGenre() {
 		return selectedGenre;
 	}
-
 
 	public void setSelectedGenre(GenreWithMusic selectedGenre) {
 		this.selectedGenre = selectedGenre;
 	}
 
-
 	public boolean isFavorite() {
 		return favorite;
 	}
 
-
 	public void setFavorite(boolean favorite) {
 		this.favorite = favorite;
 	}
-	
-	
+
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
+	}
+
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
+	}
+
 }

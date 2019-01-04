@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>Audiotorium</title>
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body styleClass="loginbodyblue">
+        
+        <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <div class="Wid33 MarAuto WidAutoOnMobile">
+                <h:graphicImage name="images/ODTU.png" library="rio-layout" style="width:40%; max-width:200px;"/>
+                <div class="EmptyBox30"></div>
+                <div class="Card ShadowEffect">
+                <h:form id ="x">
+                    <div class="EmptyBox20"></div>
+                    <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-users Fs40"></i>Audiotorium Create Account</div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Wid100"><p:inputText placeholder="Email" styleClass="Wid80 TexAlCenter Fs18" required="true" value="#{buttonManagedBean.email}" /></div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:inputText placeholder="Username" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.username}" required="true"/></div>
+                   <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:inputText type="password" placeholder="Password" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.password}" required="true"/></div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:inputText  placeholder="Name" styleClass="Wid80 TexAlCenter Fs18" required="true" value="#{buttonManagedBean.name}" /></div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:inputText  placeholder="Surname" styleClass="Wid80 TexAlCenter Fs18" required="true" value="#{buttonManagedBean.surname}" /></div>
+                    <div class="EmptyBox30"></div>
+                    <p:outputLabel for="button" value="BirthDate:" />
+       			    <p:calendar id="button" value="#{buttonManagedBean.birthDate}" showOn="button" required="true"/>
+         			<div class="EmptyBox10"></div>
+         			<p:outputLabel for="phone" value="Phone:" />
+         			<p:inputMask id="phone" value="#{buttonManagedBean.phoneNumber}" mask="(999) 999-99-99"/>
+				    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="30">
+				     <p:outputLabel value="Gender :" />
+				        <p:selectOneRadio id="Gender" value="#{buttonManagedBean.gender}">
+				            <f:selectItem itemLabel="Female" itemValue="Female" />
+				            <f:selectItem itemLabel="Male" itemValue="Male" />
+				        </p:selectOneRadio>
+				    </h:panelGrid>
+                    <p:selectBooleanCheckbox value="#{buttonManagedBean.accept}" itemLabel="I Accept Terms And Conditions" required="true"/>
+                    <div class="Wid100"><p:commandButton value="Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" href="dashboard.xhtml" action="#{buttonManagedBean.signUp()}" update="x"/></div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Separator"></div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+    </h:body>
+
+</html>

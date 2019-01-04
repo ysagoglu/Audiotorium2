@@ -6,7 +6,12 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
-        
+    
+    
+    <p:contentFlow value="#{buttonManagedBean.covers}" var="image" height="100%" width="100%">
+    <p:graphicImage value="#{image}" styleClass="content" style="pointer-events: none" height="100%" width="100%"/>
+   
+</p:contentFlow>
 <!--         <div class="Container100"> -->
 <!--             <div class="ContainerIndent"> -->
 <!--                 <div class="Card ShadowEffect "> -->

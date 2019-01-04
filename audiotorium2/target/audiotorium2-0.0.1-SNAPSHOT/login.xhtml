@@ -12,7 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces RIO</title>
+        <title>Audiotorium</title>
         <ui:insert name="head" />
     </h:head>
 
@@ -20,30 +20,45 @@
         
         <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
             <div class="Wid33 MarAuto WidAutoOnMobile">
-                <h:graphicImage name="images/logo.svg" library="rio-layout" style="width:40%; max-width:200px;"/>
+                <h:graphicImage name="images/ODTU.png" library="rio-layout" style="width:40%; max-width:200px;"/>
                 <div class="EmptyBox30"></div>
                 <div class="Card ShadowEffect">
+                <h:form>
                     <div class="EmptyBox20"></div>
-                    <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-users Fs40"></i> Login Panel</div>
+                    <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-users Fs40"></i> Audiotorium Login</div>
+	                <div class="Wid100">
+	                <h:outputText value="#{param['message']}" />
+				    </div>
                     <div class="EmptyBox20"></div>
-                    <div class="Wid100"><p:inputText placeholder="Email" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                    <div class="Wid100"><p:inputText placeholder="Email/Username" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.username}"/></div>
                     <div class="EmptyBox10"></div>
-                    <div class="Wid100"><p:inputText type="password" placeholder="Password" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                    <div class="Wid100"><p:inputText type="password" placeholder="Password" styleClass="Wid80 TexAlCenter Fs18" value="#{buttonManagedBean.password}"/></div>
+<!--                     <div class="EmptyBox30"></div> -->
+<!--                     <p:selectBooleanCheckbox value="accept" itemLabel="I Accept Terms And Policies"/> -->
                     <div class="EmptyBox30"></div>
-                    <p:selectBooleanCheckbox value="accept" itemLabel="I Accept Terms And Policies"/>
-                    <div class="EmptyBox30"></div>
-                    <div class="Wid100"><p:button value="Sign In / Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" href="dashboard.xhtml"/></div>
+                    <div class="Wid100"><p:commandButton value="Sign In" icon="fa fa-key" styleClass="GreenButton Wid60 Fs18 White RaisedButton" action="#{buttonManagedBean.login()}" /></div>
                     <div class="EmptyBox5"></div>
-                    <div class="Wid100"><p:button value="Forgot Password ?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
-                    <div class="EmptyBox20"></div>
-                    <div class="Separator"></div>
                     <div class="EmptyBox10"></div>
-                    <div class="Wid100"><p:button value="Access Request ?" icon="fa fa-key" styleClass="GreenButton Wid60 Fs18 White RaisedButton"/></div>
+                    <div class="Wid100"><p:commandButton value="Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton"  action="#{buttonManagedBean.toSignUp()}"/></div>
+                   </h:form>
                     <div class="EmptyBox20"></div>
                 </div>
-                <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
-                        <i class="fa fa-copyright"></i>  PrimeFaces RIO Theme And Layout <br/> All rights reserved.
-                    </div>
+                
+                 <p:ajaxStatus 
+                onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" 
+                >
+                 <!--     <f:facet name="start">
+                        <p:graphicImage name="images/preloader.gif" library="rio-layout"/>
+                    </f:facet>
+-->
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">  <p:graphicImage name="images/preloader.gif" library="rio-layout"/><p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
             </div>
         </div>
         

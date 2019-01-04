@@ -16,26 +16,25 @@ public class MusicController {
 
 	@Autowired
 	IMusicService musicService;
-	
-	
+
 	public List<SongView> search(String searchString) throws Exception {
 		return musicService.search(searchString);
 	}
-	
-	public String getSongPath(int id) throws Exception {
-		return musicService.getSongPath(id);
+
+	public SongView getSong(int id) throws Exception {
+		return musicService.getSong(id);
 	}
-	
+
 	public List<GenreWithMusic> retriveSongsByGenre() throws Exception {
 		return musicService.listSongsByGenre();
 	}
-	
+
 	public void addToFavoriteList(int musicId, int userId) throws Exception {
 		musicService.addToFavoriteList(musicId, userId);
 	}
-	
+
 	public List<SongView> retrieveFavoriteList(int userid) {
 		return musicService.retrieveFavoriteList(userid);
 	}
-	
+
 }

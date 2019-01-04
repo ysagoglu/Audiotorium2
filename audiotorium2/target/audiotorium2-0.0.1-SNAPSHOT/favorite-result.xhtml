@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+<h:form>
+
+<p:dataTable id="xs" var="car" value="#{searchManagedBean.songList}">
+
+    <p:column headerText="Music Name">
+        <h:outputText value="#{car.musicName}" />
+    </p:column>
+ 
+    <p:column headerText="Artist Name">
+        <h:outputText value="#{car.artistName}" />
+    </p:column>
+ 
+    <p:column headerText="Genre">
+        <h:outputText value="#{car.genre}" />
+    </p:column>
+ 
+    <p:column headerText="" >
+	    <p:commandButton action="#{searchManagedBean.playMusic}" value="Play"  style="margin-right:20px;" icon="fa fa-play-circle" >
+	    	<f:param name="musicId" value="#{car.musicid}" />
+	    	<f:param name="artistName" value="#{car.artistName}" />
+	    	<f:param name="musicName" value="#{car.musicName}" />
+		</p:commandButton>
+    </p:column>
+    <p:column headerText="" rendered="#{searchManagedBean.favorite}" >
+	    <p:commandButton action="#{searchManagedBean.addToFavoriteList}" value="Add to Favorite"  style="margin-right:20px;" icon="fa fa-music" >
+	    	<f:param name="musicId" value="#{car.musicid}" />
+		</p:commandButton>
+    </p:column>
+</p:dataTable>
+</h:form>        
+    </ui:define>
+
+</ui:composition>

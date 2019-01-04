@@ -1,6 +1,8 @@
 package com.audiotorium2;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,10 +25,10 @@ public class ButtonManagedBean {
 
 	@Autowired
 	UserController userService;
-	
+
 	@Autowired
 	MusicController musicController;
-	
+
 	public String username;
 	public String password;
 	public String email;
@@ -37,37 +39,44 @@ public class ButtonManagedBean {
 	private boolean accept;
 	private String phoneNumber;
 	private String message;
-	
-	public String login(){
+	private List<String> covers;
+
+	public String login() {
 		// Do any action that you would.
-		System.out.println(username + " " + password);
 		message = null;
 		User user = null;
-		
+
 		try {
 			user = userService.login(username, password);
 		} catch (Exception e) {
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 			e.printStackTrace();
 		}
-		
+
 		// Returns outcome
-		
-		if(user != null) {
+
+		if (user != null) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("id", user.getId());
 			session.setAttribute("displayname", user.getName());
 			name = user.getName();
+			covers = new ArrayList<String>();
+			covers.add("images/2pacbiggie.jpg");
+			covers.add("images/ironmaiden.jpg");
+			covers.add("images/Mozart.jpg");
+			covers.add("images/RayCharles.jpg");
+			covers.add("images/serdar.jpeg");
+
 			return "menu.xhtml";
 		}
-		RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "User not found"));
+		RequestContext.getCurrentInstance()
+				.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "User not found"));
 		return "login.xhtml";
 	}
-	
+
 	public String signUp() {
-		System.out.println(username + " " + password + " " + email + " " + birthDate + " " + name + " " + surname);
-		
-		
+
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
@@ -76,30 +85,32 @@ public class ButtonManagedBean {
 		user.setSurname(surname);
 		user.setName(name);
 		user.setGender(gender);
-		
-		if(!accept) {
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Licence agreement must be checed"));
+
+		if (!accept) {
+			RequestContext.getCurrentInstance().showMessageInDialog(
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Licence agreement must be checed"));
 			return null;
 		}
-		
+
 		try {
 			userService.signUp(user);
 			clearall();
 			return "login.xhtml?faces-redirect=true&includeViewParams=true&message=User account has been created successfully";
 		} catch (Exception e) {
-			
-			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-			
+
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+
 			return e.getMessage();
 		}
-		
-		
+
 	}
+
 	public String toSignUp() {
 		clearall();
 		return "signup.xhtml";
 	}
-	
+
 	public void clearall() {
 		// TODO Auto-generated method stub
 		username = null;
@@ -111,7 +122,7 @@ public class ButtonManagedBean {
 		gender = null;
 		accept = false;
 		phoneNumber = null;
-		
+
 	}
 
 	public String logout() {
@@ -121,7 +132,10 @@ public class ButtonManagedBean {
 		clearall();
 		return "login.xhtml";
 	}
-	
+
+	public String redirect() {
+		return "menu.xhtml";
+	}
 
 	public String getUsername() {
 		return username;
@@ -139,11 +153,9 @@ public class ButtonManagedBean {
 		this.password = password;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
@@ -203,5 +215,13 @@ public class ButtonManagedBean {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public List<String> getCovers() {
+		return covers;
+	}
+
+	public void setCovers(List<String> covers) {
+		this.covers = covers;
 	}
 }

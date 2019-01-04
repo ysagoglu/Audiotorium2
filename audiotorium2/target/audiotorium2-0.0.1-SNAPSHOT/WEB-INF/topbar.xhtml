@@ -1,40 +1,59 @@
-<ui:composition 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-    
-    
-    <div id="layout-topbar">
-    	<div id="logo" class="Fleft">
-        	<a href="#"><h:graphicImage name="images/logo.svg" styleClass="Fleft" library="rio-layout" /></a>
-            <a id="mobile-menu-button" class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect"><i class="icon-add186"></i></a>
-        </div>
-        
-        <a class="ripplelink WhiteBlue Fright ShowOnMobile" id="show-top-menu"><i class="icon-show8"></i></a>
-        
-        <ul id="top-menu" class="ShowOnDesktop">
-            <li>
-                <a class="ripplelink"><i class="icon-search100"></i> <span class="Txt">Search</span></a>
-                <ul>
-                    <li><input type="text" placeholder="Search"/></li>
-                </ul>
-            </li>
-            <li>
-                <a class="ripplelink"><i class="icon-set6"></i> <span class="Txt">Tasks</span></a>
-                <ul>
-                    <li><a href="#">23 New Tasks</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="ripplelink"><i class="icon-notifications1"></i> <span class="Txt">Alerts</span></a>
-                <ul>
-                    <li><a href="#">18 Alerts</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="ripplelink"><i class="icon-wifi83"></i> <span class="Txt">System Settings</span></a></li>
-        </ul>
-    </div>
-    
+	<style>
+.sample {
+	width: 100;
+}
+</style>
+	<div id="layout-topbar">
+		<h:form>
+			<div id="logo" class="Fleft">
+				<a href="menu.xhtml"><h:graphicImage name="images/ODTU.png"
+						styleClass="Fleft" library="rio-layout" /></a> <a
+					id="mobile-menu-button"
+					class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect"><i
+					class="icon-add186"></i></a>
+			</div>
+			<div class="ui-g-12 ui-md-4">
+				<div class="ui-inputgroup">
+				<p>
+					<h:commandButton value="Search"
+						action="#{searchManagedBean.search}" style="background-color: #00ccff;height:24px; font-size: 12px;" />
+						</p>
+					<p:inputText placeholder="Keyword" size="145"
+						value="#{searchManagedBean.searchString}" />
+				</div>
+
+			</div>
+		</h:form>
+	</div>
+	<!--         <a class="ripplelink WhiteBlue Fright ShowOnMobile" id="show-top-menu"><i class="icon-show8"></i></a> -->
+
+	<!--         <ul id="top-menu" class="ShowOnDesktop"> -->
+	<!--             <li> -->
+	<!--                 <a class="ripplelink"><i class="icon-search100"></i> <span class="Txt">Search</span></a> -->
+	<!--                 <ul> -->
+	<!--                     <li><input type="text" placeholder="Search"/></li> -->
+	<!--                 </ul> -->
+	<!--             </li> -->
+	<!--             <li> -->
+	<!--                 <a class="ripplelink"><i class="icon-set6"></i> <span class="Txt">Tasks</span></a> -->
+	<!--                 <ul> -->
+	<!--                     <li><a href="#">23 New Tasks</a></li> -->
+	<!--                 </ul> -->
+	<!--             </li> -->
+	<!--             <li> -->
+	<!--                 <a class="ripplelink"><i class="icon-notifications1"></i> <span class="Txt">Alerts</span></a> -->
+	<!--                 <ul> -->
+	<!--                     <li><a href="#">18 Alerts</a></li> -->
+	<!--                 </ul> -->
+	<!--             </li> -->
+	<!--             <li><a href="#" class="ripplelink"><i class="icon-wifi83"></i> <span class="Txt">System Settings</span></a></li> -->
+	<!--         </ul> -->
+	<!--     </div> -->
+
 </ui:composition>

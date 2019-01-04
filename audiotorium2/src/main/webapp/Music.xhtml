@@ -15,22 +15,32 @@
     
 <h:form>
 
- <h:form>
+ <h:form id="msgs">
  <h:outputLabel for="artistName" value="#{searchManagedBean.artistName}" style="font-size: 48px" />
  <b style="font-size:40px">-</b>
  <h:outputLabel for="musicName" value="#{searchManagedBean.songName}" style="font-size: 48px" />
   <br/>
-<p:media value="#{searchManagedBean.path}" width="200px" height="60px" player="quicktime">
-    <f:param name="autoPlay" value="false" />
-     <f:param name="hidden" value="true" />
-</p:media>
+  <p:fieldset legend="#{searchManagedBean.artistName}" toggleable="true" toggleSpeed="500">
+        <p:ajax event="toggle" listener="#{searchManagedBean.handleToggle()}" update="msgs" />
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:graphicImage value="#{searchManagedBean.profileUrl}" style="width:150px;height:100px" />
+            <h:outputText value="#{searchManagedBean.information}"></h:outputText>
+        </h:panelGrid>
+    </p:fieldset>
+    <br/>
+<!-- <p:media value="#{searchManagedBean.path}" width="100%" height="100%" player="quicktime"> -->
+<!--     <f:param name="autoPlay" value="false" /> -->
+<!--      <f:param name="hidden" value="true" /> -->
+<!-- </p:media> -->
 
-
+<!-- <object data="#{searchManagedBean.path}" width="100%"  height="100%"></object> -->
+<audio controls="controls" controlsList="nodownload" src="#{searchManagedBean.path}" >
+</audio>
 </h:form>
 </h:form>        
     </ui:define>
 
 </ui:composition>
-
+<!-- <object data="#{searchManagedBean.path}" height="45"></object> -->
 </body>
 </html>

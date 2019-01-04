@@ -55,7 +55,21 @@
                     <div class="Separator"></div>
                     </h:form>
                 </div>
-            </div>
+                
+                  <p:ajaxStatus 
+                onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" 
+                >
+                 <!--     <f:facet name="start">
+                        <p:graphicImage name="images/preloader.gif" library="rio-layout"/>
+                    </f:facet>
+-->
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">  <p:graphicImage name="images/preloader.gif" library="rio-layout"/><p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
         </div>
         
         <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />

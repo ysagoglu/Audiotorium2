@@ -9,20 +9,20 @@ import javax.sql.DataSource;
 
 import com.audiotorium2.entity.User;
 
-public class UserDAO implements IUserDAO{
+public class UserDAO implements IUserDAO {
 
-private DataSource dataSource;
-	
+	private DataSource dataSource;
+
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	
+
 	public String saveUser(User user) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO sys.user " +
-				"(id, name, username, surname, user_type, email, password, birthdate, gender, phonenumber) VALUES (?, ?, ?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO sys.user "
+				+ "(id, name, username, surname, user_type, email, password, birthdate, gender, phonenumber) VALUES (?, ?, ?,?,?,?,?,?,?,?)";
 		Connection conn = null;
-		
+
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -38,34 +38,35 @@ private DataSource dataSource;
 			ps.setString(10, user.getPhoneNumber());
 			ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-			
+
 		} finally {
 			if (conn != null) {
 				try {
 					conn.close();
-				} catch (SQLException e) {}
+				} catch (SQLException e) {
+				}
 			}
 		}
 		return "OK";
 	}
-	
-	public User findByUsername(String username, String password){
-		
+
+	public User findByUsername(String username, String password) {
+
 		String sql = "SELECT * FROM sys.user WHERE username = ?";
 		if (password != null) {
 			sql = sql + " AND password = ?";
 		}
 		Connection conn = null;
-		
+
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
-			if(password != null )
-			ps.setString(2, password);
+			if (password != null)
+				ps.setString(2, password);
 			User user = null;
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -86,8 +87,9 @@ private DataSource dataSource;
 		} finally {
 			if (conn != null) {
 				try {
-				conn.close();
-				} catch (SQLException e) {}
+					conn.close();
+				} catch (SQLException e) {
+				}
 			}
 		}
 	}
@@ -95,19 +97,19 @@ private DataSource dataSource;
 	@Override
 	public User findByEmail(String email, String password) {
 		String sql = "SELECT * FROM sys.user WHERE email = ?";
-		
+
 		if (password != null) {
-			sql = sql + " AND password = ?" ;
+			sql = sql + " AND password = ?";
 		}
-		
+
 		Connection conn = null;
-		
+
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
-			if(password != null )
-			ps.setString(2, password);
+			if (password != null)
+				ps.setString(2, password);
 			User user = null;
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -128,8 +130,9 @@ private DataSource dataSource;
 		} finally {
 			if (conn != null) {
 				try {
-				conn.close();
-				} catch (SQLException e) {}
+					conn.close();
+				} catch (SQLException e) {
+				}
 			}
 		}
 	}
@@ -145,20 +148,19 @@ private DataSource dataSource;
 			ps.setString(2, operation);
 			ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-			
+
 		} finally {
 			if (conn != null) {
 				try {
 					conn.close();
-				} catch (SQLException e) {}
+				} catch (SQLException e) {
+				}
 			}
 		}
-		
+
 	}
-		
-		
-	
+
 }
